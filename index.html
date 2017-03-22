@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HEAD IMG</title>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="html2canvas.js"></script>
+    <script type="text/javascript" src="vue.min.js"></script>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/37509/58d21924f629d80ec496324d.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/44802/58d22528f629d80ec496325a.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/47007/58d235eaf629d80ec496327c.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/42551/58d2487ff629d80ec49632ab.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/39232/58d248ccf629d80ec49632ad.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/46820/58d26bb8f629d80ec49632d3.css'
+          rel='stylesheet' type='text/css'/>
+    <link href='http://cdn.webfont.youziku.com/webfonts/nomal/100265/42391/58d26f31f629d80ec49632df.css'
+          rel='stylesheet' type='text/css'/>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #DCDCDC;
+        }
+
+        .content {
+            display: block;
+            width: 300px;
+            height: 300px;
+            margin: 25px auto;
+            line-height: 300px;
+            text-align: center;
+        }
+
+        .row {
+            width: 200px;
+            height: 26px;
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .msgLabel {
+            font-size: 12px;
+            line-height: 24px;
+            text-align: right;
+            float: left;
+        }
+
+        .msgSelectLabel {
+            font-size: 12px;
+            line-height: 26px;
+            text-align: right;
+            float: left;
+            margin-top: 8px;
+        }
+
+        .msgInput {
+            float: left;
+            width: 130px;
+            height: 24px;
+            text-align: center;
+        }
+
+        .msgSelect {
+            width: 134px;
+            height: 26px;
+            margin: 10px auto;
+            text-align: center;
+            float: left;
+        }
+
+        .sureBtn {
+            display: block;
+            width: 70px;
+            height: 24px;
+            margin: 25px auto;
+            background: #17C184;
+            border: none;
+            color: white;
+            line-height: 24px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .sureBtn:hover {
+            background: #41CB83;
+        }
+
+        .sureBtn:active {
+            background: #00B166;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <label id="content" class="content"
+           :style="{backgroundColor: backgroundColor, fontSize: fontSize + 'px',color:fontColor,fontFamily: fontFamily}">
+        {{message}}</label>
+    <div class="row">
+        <label class="msgLabel">文本内容：</label>
+        <input class="msgInput" placeholder="请输入文本内容" type="text" v-model="message"/>
+    </div>
+    <div class="row">
+        <label class="msgLabel">字体大小：</label>
+        <input class="msgInput" placeholder="请输入字体大小" type="number" v-model="fontSize"/>
+    </div>
+    <div class="row">
+        <label class="msgLabel">字体颜色：</label>
+        <input class="msgInput" placeholder="请输入字体颜色" type="text" v-model="fontColor"/>
+    </div>
+    <div class="row">
+        <label class="msgLabel">背景颜色：</label>
+        <input class="msgInput" placeholder="请输入背景色" type="text" v-model="backgroundColor"/>
+    </div>
+    <div class="row">
+        <label class="msgSelectLabel">字体样式：</label>
+        <select class="msgSelect" v-model="fontFamily">
+            <option value="Malapropism999db7d05187a9">网络字体1</option>
+            <option value="LostHighway99a0a6c57187a9">网络字体2</option>
+            <option value="Jellyka_-_Love_99a4be44a187a9">网络字体3</option>
+            <option value="Tafelschrift99a947919187a9">网络字体4</option>
+            <option value="Philing99a95a6ac187a9">网络字体5</option>
+            <option value="JennaSue99b1e107d187a9">网络字体6</option>
+            <option value="Superhelioregul99b2ba2f9187a9">网络字体7</option>
+            <option value="宋体">宋体</option>
+            <option value="华文宋体">华文宋体</option>
+            <option value="微软雅黑">微软雅黑</option>
+            <option value="Arial">Arial</option>
+            <option value="-webkit-pictograph">-webkit-pictograph</option>
+            <option value="fantasy">fantasy</option>
+            <option value="monospace">monospace</option>
+            <option value="cursive">cursive</option>
+        </select>
+    </div>
+    <button class="sureBtn" @click="sureBtn">生成图片</button>
+</div>
+</body>
+
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'K A Y',
+            backgroundColor: '#212121',
+            fontColor: 'white',
+            fontSize: '75',
+            fontFamily: 'Malapropism999db7d05187a9'
+        },
+        methods: {
+            sureBtn: function () {
+                html2canvas($('#content'), {
+                    onrendered: function (canvas) {
+                        var url = canvas.toDataURL();
+                        var triggerDownload = $("<a>").attr("href", url).attr("download", "head.png").appendTo("body");
+                        triggerDownload[0].click();
+                        triggerDownload.remove();
+                    }
+                });
+            }
+        }
+    });
+</script>
+</html>
